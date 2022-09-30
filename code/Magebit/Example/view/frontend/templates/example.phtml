@@ -1,0 +1,21 @@
+<?php
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\StoreConfig;
+
+use Magebit\Example\ViewModel\ContactDetails;
+
+$contactDetails = $viewModels->require(ContactDetails::class);
+?>
+
+<div class="template">
+    <h1>Phone number: <?=$contactDetails->getPhoneNumber()?></h1>
+</div>
+
+<div x-data="{ open: false }">
+    <button @click="open = true">Expand</button>
+ 
+    <span x-show="open" @click="open = false">
+      Content...
+    </span>
+</div>
