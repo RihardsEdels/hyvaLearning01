@@ -33,6 +33,20 @@ module.exports = hyvaModules.mergeTailwindConfig({
                     lighter: colors.blue['100'],
                     "DEFAULT": colors.blue['200'],
                     darker: colors.blue['300'],
+                },
+                blue: {
+                    "DEFAULT":'#160F3E'
+                },
+                red: {
+                    darker:'#E53848',
+                    "DEFAULT":'#E53647'
+                },
+                black: {
+                    "DEFAULT":'#000000',
+                    light:'#363636'
+                },
+                grey: {
+                    "DEFAULT":"#F2F2F2"
                 }
             },
             textColor: {
@@ -130,6 +144,7 @@ module.exports = hyvaModules.mergeTailwindConfig({
         //     safelist: [/^bg-opacity-/, /^-?[mp][trblxy]?-[4,8]$/, /^text-shadow/],
         // },
         content: [
+            '../../../../../../../vendor/hyva-themes/magento2-hyva-widgets/**/*.phtml',
             // this theme's phtml files
             '../../**/*.phtml',
             // The theme-module templates are included automatically in the purge config since Hyvä 1.1.15, but

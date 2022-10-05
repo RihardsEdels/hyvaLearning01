@@ -351,6 +351,7 @@ return [
         'Hyva_ReactCheckout' => 1,
         'Hyva_Theme' => 1,
         'Hyva_LumaCheckout' => 1,
+        'Hyva_Widgets' => 1,
         'Magebit_Example' => 1,
         'PayPal_Braintree' => 1,
         'PayPal_BraintreeGraphQl' => 1,

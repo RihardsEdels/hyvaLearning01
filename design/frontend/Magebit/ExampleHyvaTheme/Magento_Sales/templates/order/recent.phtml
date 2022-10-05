@@ -1,0 +1,167 @@
+<?php
+/**
+ * This file is part of the ExampleHyvaTheme package.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade ExampleHyvaTheme
+ * to newer versions in the future.
+ *
+ * @copyright Copyright (c) 2022 Magebit, Ltd. (https://magebit.com/)
+ * @author    Magebit <info@magebit.com>
+ * @license   MIT
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+use Magento\Framework\Data\Helper\PostHelper;
+
+
+/** @var RecentExtended $block */
+/** @var Escaper $escaper */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+?>
+<script>
+    function getOrders() {
+        tableCols = [
+            {
+                value: "increment_id",
+                label: '<?= $escaper->escapeHtml(__('Order #'))?>'
+            },
+            {
+                value: "created_at",
+                label: '<?= $escaper->escapeHtml(__('Date'))?>'
+            },
+            {
+                value: "po_number",
+                label: '<?= $escaper->escapeHtml(__('PO Nr.'))?>'
+            },
+            {
+                value: "customer_name",
+                label: '<?= $escaper->escapeHtml(__('Customer'))?>'
+            },
+            {
+                value: "grand_total",
+                label: '<?= $escaper->escapeHtml(__('Order Total'))?>'
+            },
+            {
+                value: "status_label",
+                label: '<?= $escaper->escapeHtml(__('Status'))?>'
+            },
+            {
+                value: "actions",
+                label: '<?= $escaper->escapeHtml(__('Actions'))?>'
+            }
+        ];
+
+        noSortCols = ["actions", "customer_lastname", "status_label"];
+
+        return {
+            sortDescending: true,
+            orders:<?= json_encode($block -> customDataOrders())?>,
+            sortRows(id) {
+                this.sortDescending = !this.sortDescending;
+                if (this.sortDescending) {
+                    this.orders.sort((a, b) => (a[id] < b[id]) ? 1 : ((b[id] < a[id]) ? -1 : 0))
+                }
+
+                if (!this.sortDescending) {
+                    this.orders.sort((a, b) => (a[id] > b[id]) ? 1 : ((b[id] > a[id]) ? -1 : 0))
+                }
+            }
+        }
+    }
+
+</script>
+<div x-data="getOrders()">
+    <div class="header">
+        <span>
+            <?= $escaper->escapeHtml(__('Recent Orders'))?>
+        </span>
+    </div>
+    <div>
+        <template x-if="orders.length > 0">
+            <table class="desktop_table">
+                <thead>
+                    <tr>
+                        <template x-for="col in tableCols" :key="col.value">
+                            <th class="header_col" :id="col.value">
+                                <div class="header_col_wrapper"
+                                    @click="{!noSortCols.includes(col.value) ?sortRows(col.value):null}">
+                                    <span x-text="col.label"></span>
+                                    <span x-show="!noSortCols.includes(col.value)" class="icon invisible sort-icon">
+                                        <span class="arrow-up"></span>
+                                        <span class="arrow-down"></span>
+                                    </span>
+                                </div>
+                            </th>
+                        </template>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template x-for="order in orders">
+                        <tr :id="order.increment_id">
+                            <td>
+                                <p class="increment_id" x-text="order.increment_id"></p>
+                            </td>
+                            <td>
+                                <p class="created_at" x-text="order.created_at"></p>
+                            </td>
+                            <td>
+                                <p class="po_number" x-text="order.po_number"></p>
+                            </td>
+                            <td>
+                                <p class="name" x-text="order.customer_name"></p>
+                            </td>
+                            <td>
+                                <span class="grand_total" x-text="hyva.formatPrice(order.grand_total)"></span>
+                            </td>
+                            <td>
+                                <p class="status_label" x-text="order.status"></p>
+                            </td>
+                            <td>
+                                <div class="actions_wrapper">
+                                    <a :href="'<?= $escaper->escapeHtml($block->getUrl('sales/order/view')); ?>order_id/'+order.entity_id"
+                                        title="<?= $escaper->escapeHtmlAttr(__('View Order'))?>">
+                                        <span>
+                                            <?= $heroicons->eyeHtml()?>
+                                        </span>
+                                    </a>
+                                    <template x-if="order.reorder_data">
+                                        <form :action="order.reorder_action" method="post"
+                                            class="inline-flex items-center action">
+                                            <input type="hidden" name="form_key" :value="hyva.getFormKey()">
+                                            <input type="hidden" name="data"
+                                                :value="JSON.stringify(order.reorder_data.data)" />
+                                            <button title="<?= $escaper->escapeHtmlAttr(__('Reorder'))?>" type="submit"
+                                                class="md:opacity-40 md:hover:opacity-60 font-bold text-blue flex justify-center w-full md:w-auto">
+                                                <?= $heroicons->refreshHtml()?>
+                                                <span class="md:hidden text-bold mt-[-2px]">
+                                                    <?= $escaper->escapeHtmlAttr(__('Repeat'))?>
+                                                </span>
+                                            </button>
+                                        </form>
+                                    </template>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+            <div class="view_all">
+                <a class="btn btn-primary inline-flex"
+                    href="<?= $escaper->escapeUrl($block->getUrl('sales/order/history'))?>">
+                    <span>
+                        <?= $escaper->escapeHtml(__('View All'))?>
+                    </span>
+                </a>
+            </div>
+        </template>
+    </div>
+</div>
