@@ -35,7 +35,9 @@ module.exports = hyvaModules.mergeTailwindConfig({
                     darker: colors.blue['300'],
                 },
                 blue: {
-                    "DEFAULT":'#160F3E'
+                    "DEFAULT":'#160F3E',
+                    lightest: '#FFFFFF1A',
+                    dark:'#003057'
                 },
                 red: {
                     darker:'#E53848',
@@ -49,6 +51,13 @@ module.exports = hyvaModules.mergeTailwindConfig({
                     "DEFAULT":"#F2F2F2"
                 }
             },
+            fontSize: {
+                
+                xxl: '2.125rem'
+            },
+            boxShadow: {
+                'image': '28px 28px #FFFFFF1A',
+            },               
             textColor: {
                 orange: colors.orange,
                 red: {

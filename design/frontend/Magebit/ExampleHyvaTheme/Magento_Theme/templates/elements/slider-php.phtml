@@ -1,0 +1,145 @@
+<?php
+/**
+ * This file is part of the ExampleHyvaTheme package.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade ExampleHyvaTheme
+ * to newer versions in the future.
+ *
+ * @copyright Copyright (c) 2022 Magebit, Ltd. (https://magebit.com/)
+ * @author    Magebit <info@magebit.com>
+ * @license   MIT
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
+use Hyva\Theme\Model\ViewModelRegistry;
+use Hyva\Theme\ViewModel\HeroiconsOutline;
+use Hyva\Theme\ViewModel\Store;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/** @var Template $block */
+/** @var Escaper $escaper */
+/** @var ViewModelRegistry $viewModels */
+
+/** @var Store $viewModelStore */
+$viewModelStore = $viewModels->require(Store::class);
+
+/** @var HeroiconsOutline $heroicons */
+$heroicons = $viewModels->require(HeroiconsOutline::class);
+
+$title = (string) $block->getTitle();
+$items = $block->getItems() ?? [];
+if (is_object($items) && $items instanceof Iterator) {
+    $items = iterator_to_array($items);
+}
+if (!$itemCount = count($items)) {
+    return '';
+}
+$sliderItemRenderer = $block->getChildBlock('slider.item.template');
+
+?>
+<script>
+    'use strict';
+
+    function initSliderComponent() {
+        return {
+            active: 0,
+            itemCount: 0,
+            getSlider() {
+                return this.$el.querySelector('.js_slides');
+            },
+            pageSize: 1,
+            pageFillers: 0,
+            calcPageSize() {
+                const slider = this.getSlider();
+                if (slider) {
+                    this.itemCount = slider.querySelectorAll('.js_slide').length;
+                    this.pageSize = Math.round(slider.clientWidth / slider.querySelector('.js_slide').clientWidth);
+                    this.pageFillers = (
+                        this.pageSize * Math.ceil(this.itemCount / this.pageSize)
+                    ) - this.itemCount;
+                }
+            },
+            calcActive() {
+                const slider = this.getSlider();
+                if (slider) {
+                    const sliderItems = this.itemCount + this.pageFillers;
+                    const calculatedActiveSlide = slider.scrollLeft / (slider.scrollWidth / sliderItems);
+                    this.active = Math.round(calculatedActiveSlide / this.pageSize) * this.pageSize;
+                }
+            },
+            scrollPrevious() {
+                this.scrollTo(this.active - this.pageSize);
+            },
+            scrollNext() {
+                this.scrollTo(this.active + this.pageSize);
+            },
+            scrollTo(idx) {
+                const slider = this.getSlider();
+                if (slider) {
+                    const slideWidth = slider.scrollWidth / (this.itemCount + this.pageFillers);
+                    slider.scrollLeft = Math.floor(slideWidth) * idx;
+                    this.active = idx;
+                }
+            }
+        }
+    }
+</script>
+<section class="<?=
+    $escaper->escapeHtmlAttr($block->getData('maybe_purged_tailwind_section_classes'))
+    ?: 'my-12 text-gray-700 body-font bg-blue-dark';
+?>"
+         x-data="initSliderComponent()"
+         x-init="calcPageSize();"
+         @resize.window.debounce="calcPageSize(); $nextTick( function() { calcActive() })"
+>
+    <?php if ($items): ?>
+        <div class="relative">
+            <?php if ($title): ?>
+                <div class="container flex flex-col items-center pt-6 pb-3 mx-auto mb-6 border-b-2
+                    border-gray-300 md:flex-row">
+                    <h3 class="text-2xl font-medium text-gray-900 title-font">
+                        <?= $escaper->escapeHtml($title); ?>
+                    </h3>
+                </div>
+            <?php endif; ?>
+            <div class="relative w-full overflow-x-hidden">
+                <div class="relative flex flex-nowrap w-full overflow-auto transition-all js_slides snap"
+                     @scroll.debounce="calcActive"
+                >
+                    <?php foreach ($items as $item): ?>
+                        <div class="flex flex-shrink-0 w-full border-0 outline-none js_slide w-full">
+                            <div class="  focus-within:ring-inset-0 ring-inset-0 bg-blue-dark px-[192px] pt-[280px] outline-none border-0">
+                                 <?= $sliderItemRenderer->setItem($item)->toHtml() ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    <div :class="{
+                        'js_dummy_slide w-full w-full flex-none py-1' : pageFillers > 0
+                        }"></div>
+                    <div :class="{
+                        'js_dummy_slide w-full w-full flex-none py-1' : pageFillers > 1
+                        }"></div>
+                    <div :class="{
+                        'js_dummy_slide w-full w-full flex-none py-1' : pageFillers > 2
+                        }"></div>
+                </div>
+            </div>
+            <div class="pb-[260px] outline-none">
+            <template x-if="itemCount > pageSize">
+                <div class="flex gap-x-1 justify-center">
+                    <template  x-for="(item,idx) in itemCount">
+                        <div @click="scrollTo(idx)" class=" h-1 w-[50px] hover:bg-grey-500" :class="{'bg-white' : active === idx,'bg-blue-lightest' : active!==idx}"></div>
+                    </template>
+                </div>
+            </template>
+            </div>
+        </div>
+    <?php endif; ?>
+</section>
