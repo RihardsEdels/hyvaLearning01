@@ -17,23 +17,16 @@
 namespace Magebit\Example\Block\Order;
 
 use Magento\Sales\Block\Order\Recent;
-use  Magento\Framework\View\Element\Template\Context;
+use Magento\Framework\View\Element\Template\Context;
 use Magento\Sales\Model\ResourceModel\Order\CollectionFactoryInterface;
 use Magento\Customer\Model\Session;
 use Magento\Sales\Model\Order\Config;
-use Magento\Store\Model\StoreManagerInterface;
-use Magento\Framework\App\ObjectManager;
 use Magento\Sales\Helper\Reorder;
 use Magento\Framework\Data\Helper\PostHelper;
 
 class ExtendedRecent extends Recent
 {
     /**
-     * @param Context $context
-     * @param array $data
-     */
-
-     /**
      * @var CollectionFactoryInterface
      */
     protected $_orderCollectionFactory;
@@ -48,7 +41,7 @@ class ExtendedRecent extends Recent
      */
     protected $_orderConfig;
 
-     /**
+    /**
      * @var PostHelper
      */
     private PostHelper $helperPost;
@@ -58,22 +51,16 @@ class ExtendedRecent extends Recent
      */
     private Reorder $helperReorder;
 
-    /**
-     * @var \Magento\Store\Model\StoreManagerInterface
-     */
-    private $storeManager;
-    
     public function __construct(
-       Context $context,
-       Session $customerSession,
-       Config $orderConfig,
-       PostHelper $helperPost,
-       Reorder $helperReorder,
-
-       CollectionFactoryInterface $orderCollectionFactory,
-       StoreManagerInterface $storeManager = null,
+        Context $context,
+        Session $customerSession,
+        Config $orderConfig,
+        PostHelper $helperPost,
+        Reorder $helperReorder,
+        CollectionFactoryInterface $orderCollectionFactory,
         array $data = []
-    ) {
+        )
+    {
         parent::__construct($context, $orderCollectionFactory, $customerSession, $orderConfig, $data);
 
         $this->_orderCollectionFactory = $orderCollectionFactory;
@@ -81,37 +68,32 @@ class ExtendedRecent extends Recent
         $this->helperReorder = $helperReorder;
         $this->helperPost = $helperPost;
         $this->_orderConfig = $orderConfig;
-        $this->storeManager = $storeManager ?: ObjectManager::getInstance()
-            ->get(StoreManagerInterface::class);
     }
     /**
      * Get recently placed orders formatted for Alpine
      */
-    public function customDataOrders () {
-
+    public function customDataOrders()
+    {
         $orders = parent::getOrders();
         $adjustedOrderData = [];
 
         foreach ($orders as $order) {
-            $formData = json_decode(
-                $this->helperPost->getPostData(
-                    $this->getReorderUrl($order)
-                ),
-                true
-            );
-            $adjustedOrderData []= [
-                'entity_id'=>$order->getEntityId(),
-                'increment_id'=>$order->getIncrementId(),
-                'created_at'=>$this->formatDate($order->getCreatedAt()),
-                'customer_name'=>$order->getCuStomerFirstName() . " " . $order->getCustomerLastName(),
-                'grand_total'=>$order->getGrandTotal(),
-                'status'=>$order->getStatus(),
+            $formData = json_decode($this->helperPost->getPostData($this->getReorderUrl($order)), true);
+
+            $adjustedOrderData[] = [
+                'entity_id' => $order->getEntityId(),
+                'increment_id' => $order->getIncrementId(),
+                'created_at' => $this->formatDate($order->getCreatedAt()),
+                'customer_name' => $order->getCuStomerFirstName() . " " . $order->getCustomerLastName(),
+                'grand_total' => $order->getGrandTotal(),
+                'status' => $order->getStatus(),
                 'can_reorder' => $this->helperReorder->canReorder($order->getEntityId()),
                 'reorder_action' => $formData['action'],
                 'reorder_data' => json_encode($formData['data']),
-                'po_number'=> $order->getPayment()->getPoNumber()
+                'po_number' => $order->getPayment()->getPoNumber()
             ];
-    }
+        }
+
         return $adjustedOrderData;
     }
 }
