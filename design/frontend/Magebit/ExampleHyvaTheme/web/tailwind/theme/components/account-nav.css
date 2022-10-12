@@ -1,0 +1,30 @@
+.account-nav {
+  @apply p-0;
+
+  ul li strong {
+    @apply no-underline;
+  }
+
+  .account-nav-content {
+    @apply p-0 bg-grey;
+
+    .nav.item {
+      @apply px-10 py-[14px] relative;
+    }
+
+    .nav.item.current {
+      background-image: linear-gradient(
+        to left,
+        rgba(229, 54, 71, 0),
+        rgba(229, 54, 71, 0.05)
+      );
+    }
+
+    .nav.item.current a::before,
+    .nav.item.current strong::before {
+      @apply h-[60px] w-[6px] bg-red block absolute left-0 top-0 py-0;
+
+      content: "";
+    }
+  }
+}

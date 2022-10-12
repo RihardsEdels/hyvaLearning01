@@ -1,0 +1,40 @@
+.desktop_table {
+  @apply w-full text-center;
+
+  thead {
+    @apply bg-blue text-white uppercase text-xs h-[48px] px-8;
+
+    div.header_col_wrapper:hover .icon {
+      @apply visible;
+    }
+  }
+
+  .header_col_wrapper {
+    @apply grid grid-flow-col gap-[2px] justify-center;
+  }
+
+  tbody {
+    @apply divide-y border px-8;
+
+    td {
+      @apply pt-3 pb-4 text-sm text-black-light;
+
+      .increment_id,
+      .po_number {
+        @apply text-red;
+      }
+
+      .grand_total {
+        @apply font-bold;
+      }
+
+      .actions_wrapper {
+        @apply grid grid-flow-col gap-1 justify-center;
+
+        a {
+          @apply flex justify-center;
+        }
+      }
+    }
+  }
+}

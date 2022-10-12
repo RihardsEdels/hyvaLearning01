@@ -6,3 +6,6 @@
 @import "theme/components/recaptcha.css";
 @import "theme/components/sales.css";
 @import "theme/components/style/forms.css";
+@import "theme/components/table.css";
+@import "theme/components/dashboard.css";
+@import "theme/components/account-nav.css"

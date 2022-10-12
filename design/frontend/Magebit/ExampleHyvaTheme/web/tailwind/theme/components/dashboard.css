@@ -1,0 +1,21 @@
+.customer-account-index {
+  .sort-icon {
+    @apply grid gap-px pt-[2px];
+
+    .arrow-up {
+      @apply w-0 h-0 border-4 border-l-transparent border-r-transparent border-t-0 border-b-white;
+    }
+
+    .arrow-down {
+      @apply w-0 h-0 border-4 border-l-transparent border-r-transparent border-b-0 border-t-white;
+    }
+  }
+
+  .view_all {
+    @apply w-full py-6 px-8 border border-t-0;
+  }
+
+  .header {
+    @apply font-bold text-xl px-8 py-6 border;
+  }
+}
