@@ -2253,11 +2253,17 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 .z-20 {
 	z-index: 20;
 }
+.order-1 {
+	order: 1;
+}
 .-m-2 {
 	margin: -0.5rem;
 }
 .-m-4 {
 	margin: -1rem;
+}
+.m-1 {
+	margin: 0.25rem;
 }
 .mx-10 {
 	margin-left: 2.5rem;
@@ -2290,6 +2296,10 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 .my-12 {
 	margin-top: 3rem;
 	margin-bottom: 3rem;
+}
+.mx-1 {
+	margin-left: 0.25rem;
+	margin-right: 0.25rem;
 }
 .mt-4 {
 	margin-top: 1rem;
@@ -2330,6 +2340,9 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 .mt-12 {
 	margin-top: 3rem;
 }
+.ml-4 {
+	margin-left: 1rem;
+}
 .mb-3 {
 	margin-bottom: 0.75rem;
 }
@@ -2345,8 +2358,11 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 .mb-8 {
 	margin-bottom: 2rem;
 }
-.ml-4 {
-	margin-left: 1rem;
+.mb-6 {
+	margin-bottom: 1.5rem;
+}
+.mr-4 {
+	margin-right: 1rem;
 }
 .block {
 	display: block;
@@ -2411,6 +2427,9 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 .h-48 {
 	height: 12rem;
 }
+.h-3 {
+	height: 0.75rem;
+}
 .max-h-screen {
 	max-height: 100vh;
 }
@@ -2456,6 +2475,9 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 .w-20 {
 	width: 5rem;
 }
+.w-3 {
+	width: 0.75rem;
+}
 .max-w-md {
 	max-width: 28rem;
 }
@@ -2470,6 +2492,9 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 }
 .flex-1 {
 	flex: 1 1 0%;
+}
+.flex-none {
+	flex: none;
 }
 .flex-shrink-0 {
 	flex-shrink: 0;
@@ -2550,6 +2575,9 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 .flex-wrap {
 	flex-wrap: wrap;
 }
+.flex-nowrap {
+	flex-wrap: nowrap;
+}
 .items-end {
 	align-items: flex-end;
 }
@@ -2629,6 +2657,9 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 .overflow-y-auto {
 	overflow-y: auto;
 }
+.overflow-x-hidden {
+	overflow-x: hidden;
+}
 .truncate {
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -2668,6 +2699,9 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 .border-t-4 {
 	border-top-width: 4px;
 }
+.border-b-2 {
+	border-bottom-width: 2px;
+}
 .border-dashed {
 	border-style: dashed;
 }
@@ -2681,6 +2715,10 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 .border-white {
 	--tw-border-opacity: 1;
 	border-color: rgba(255, 255, 255, var(--tw-border-opacity));
+}
+.border-gray-300 {
+	--tw-border-opacity: 1;
+	border-color: rgba(209, 213, 219, var(--tw-border-opacity));
 }
 .bg-container-darker {
 	--tw-bg-opacity: 1;
@@ -2738,11 +2776,21 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 	--tw-bg-opacity: 1;
 	background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
 }
+.bg-blue-dark {
+	--tw-bg-opacity: 1;
+	background-color: rgba(0, 48, 87, var(--tw-bg-opacity));
+}
 .bg-opacity-75 {
 	--tw-bg-opacity: 0.75;
 }
 .bg-opacity-50 {
 	--tw-bg-opacity: 0.5;
+}
+.bg-opacity-25 {
+	--tw-bg-opacity: 0.25;
+}
+.bg-opacity-100 {
+	--tw-bg-opacity: 1;
 }
 .bg-none {
 	background-image: none;
@@ -2863,6 +2911,12 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 .pb-8 {
 	padding-bottom: 2rem;
 }
+.pt-6 {
+	padding-top: 1.5rem;
+}
+.pb-3 {
+	padding-bottom: 0.75rem;
+}
 .text-left {
 	text-align: left;
 }
@@ -2940,6 +2994,9 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 .tracking-tight {
 	letter-spacing: -0.025em;
 }
+.tracking-wide {
+	letter-spacing: 0.025em;
+}
 .text-black {
 	--tw-text-opacity: 1;
 	color: rgba(0, 0, 0, var(--tw-text-opacity));
@@ -2992,8 +3049,15 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 	--tw-text-opacity: 1;
 	color: rgba(120, 53, 15, var(--tw-text-opacity));
 }
+.text-gray-800 {
+	--tw-text-opacity: 1;
+	color: rgba(31, 41, 55, var(--tw-text-opacity));
+}
 .underline {
 	text-decoration: underline;
+}
+.no-underline {
+	text-decoration: none;
 }
 .opacity-75 {
 	opacity: 0.75;
@@ -3012,6 +3076,9 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 }
 .opacity-5 {
 	opacity: 0.05;
+}
+.opacity-25 {
+	opacity: 0.25;
 }
 .mix-blend-darken {
 	mix-blend-mode: darken;
@@ -3035,6 +3102,13 @@ a.pagebuilder-button-secondary:focus, button.pagebuilder-button-secondary:focus,
 .outline-none {
 	outline: 2px solid transparent;
 	outline-offset: 2px;
+}
+.ring-blue-500 {
+	--tw-ring-opacity: 1;
+	--tw-ring-color: rgba(59, 130, 246, var(--tw-ring-opacity));
+}
+.ring-opacity-50 {
+	--tw-ring-opacity: 0.5;
 }
 .filter {
 	filter: var(--tw-filter);
@@ -3352,6 +3426,11 @@ fieldset ~ fieldset {
 	--tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
 	box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
+.focus-within\:ring-1:focus-within {
+	--tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+	--tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+	box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
 .focus-within\:ring-indigo-500:focus-within {
 	--tw-ring-opacity: 1;
 	--tw-ring-color: rgba(99, 102, 241, var(--tw-ring-opacity));
@@ -3408,10 +3487,18 @@ fieldset ~ fieldset {
 .focus\:ring-offset-2:focus {
 	--tw-ring-offset-width: 2px;
 }
+.active\:ring-0:active {
+	--tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+	--tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+	box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
 .group:hover .group-hover\:opacity-75 {
 	opacity: 0.75;
 }
 @media (min-width: 640px) {
+	.sm\:order-2 {
+		order: 2;
+	}
 	.sm\:my-8 {
 		margin-top: 2rem;
 		margin-bottom: 2rem;
@@ -3507,6 +3594,9 @@ fieldset ~ fieldset {
 	}
 	.sm\:pb-4 {
 		padding-bottom: 1rem;
+	}
+	.sm\:pb-0 {
+		padding-bottom: 0px;
 	}
 	.sm\:text-left {
 		text-align: left;
@@ -3632,6 +3722,9 @@ fieldset ~ fieldset {
 	}
 	.lg\:left-0 {
 		left: 0px;
+	}
+	.lg\:order-1 {
+		order: 1;
 	}
 	.lg\:col-start-2 {
 		grid-column-start: 2;
